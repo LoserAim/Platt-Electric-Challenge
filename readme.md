@@ -19,4 +19,6 @@ This is a repository for the coding challenge given by Platt Electric
 
 ## Description
 
-In this project, I created a simple web page using ASP.Net Core 3.0. This website contains simple CRUD operations for a data model called "RPGClasses". The first page to appear when the project is running is a List of the current objects in the database. 
+In this project, I created a simple web page using ASP.Net Core 3.0. This website contains simple CRUD operations for a data model called "RPGClasses". The first page to appear when the project is running is a List of the current objects in the database. At the top left of the page is a blue button with "Create New", when clicked it will bring up a new page that allows data to be inserted into the database. On each row, there are three buttons that will allow the user to edit, view, or delete the specific item in the row.
+
+Other than the standard operations for database management, there are some features for sorting through the list of RPGClasses. Such as a search bar that will look up by Class Name as well Ascending and Descending order for each column.
