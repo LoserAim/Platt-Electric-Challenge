@@ -33,10 +33,10 @@
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["HPSortParm"]">@Html.DisplayNameFor(model => model.HealthPoints)</a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeedSortParm"]">@Html.DisplayNameFor(model => model.Speed)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["SPSortParm"]">@Html.DisplayNameFor(model => model.Speed)</a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["SASortParm"]">@Html.DisplayNameFor(model => model.SpecialAbilities)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["SASortParm"]">@Html.DisplayNameFor(model => model.SpecialAbility)</a>
                 </th>
                 <th></th>
             </tr>
@@ -56,7 +56,7 @@
                         @Html.DisplayFor(modelItem => item.Speed)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SpecialAbilities)
+                        @Html.DisplayFor(modelItem => item.SpecialAbility)
                     </td>
                     <td style="width:150px">
                         <div class=" btn-group" role="group">

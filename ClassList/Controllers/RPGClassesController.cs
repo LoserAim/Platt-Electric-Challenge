@@ -28,7 +28,7 @@ namespace ClassList.Controllers
              */
             ViewData["CNSortParm"] = sortOrder == "name_D" ? "name_A" : "name_D";
             ViewData["HPSortParm"] = sortOrder == "hp_min" ? "hp_max" : "hp_min";
-            ViewData["SpeedSortParm"] = sortOrder == "speed_min" ? "speed_max" : "speed_min";
+            ViewData["SPSortParm"] = sortOrder == "speed_min" ? "speed_max" : "speed_min";
             ViewData["SASortParm"] = sortOrder == "special_D" ? "special_A" : "special_D";
             ViewData["CurrentFilter"] = searchString;
             var classes = await _context.RPGClass.ToListAsync();
@@ -73,12 +73,12 @@ namespace ClassList.Controllers
                 case "special_A":
                     classes = classes
                         .AsParallel().OrderBy(
-                            c => c.SpecialAbilities).ToList();
+                            c => c.SpecialAbility).ToList();
                     break;
                 case "special_D":
                     classes = classes
                         .AsParallel().OrderByDescending(
-                            c => c.SpecialAbilities).ToList();
+                            c => c.SpecialAbility).ToList();
                     break;
                 default:
                     break;
@@ -110,7 +110,7 @@ namespace ClassList.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClassName,HealthPoints,Speed,SpecialAbilities")] RPGClass rPGClass)
+        public async Task<IActionResult> Create([Bind("Id,ClassName,HealthPoints,Speed,SpecialAbility")] RPGClass rPGClass)
         {
             if (ModelState.IsValid)
             {
@@ -137,7 +137,7 @@ namespace ClassList.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassName,HealthPoints,Speed,SpecialAbilities")] RPGClass rPGClass)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassName,HealthPoints,Speed,SpecialAbility")] RPGClass rPGClass)
         {
             /* Purpose:
              *  This function will save any changes made to model data as
@@ -145,9 +145,7 @@ namespace ClassList.Controllers
              *  tell the user.
              */
             if (id != rPGClass.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -159,13 +157,9 @@ namespace ClassList.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!_context.RPGClass.Any(e => e.Id == id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }

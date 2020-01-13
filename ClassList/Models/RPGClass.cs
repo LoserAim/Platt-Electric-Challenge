@@ -16,7 +16,7 @@ namespace ClassList.Models
         public int HealthPoints { get; set; }
         [Required]
         public int Speed { get; set; }
-        public string SpecialAbilities { get; set; }
+        public string SpecialAbility { get; set; }
 
     }
 }
