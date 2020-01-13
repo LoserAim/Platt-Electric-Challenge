@@ -191,6 +191,10 @@ namespace ClassList.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            /* Purpose:
+             *  This function will remove the specified object from the 
+             *  database based on the given id
+             */
             var rPGClass = await _context.RPGClass.FindAsync(id);
             _context.RPGClass.Remove(rPGClass);
             await _context.SaveChangesAsync();
