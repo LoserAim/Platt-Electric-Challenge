@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ClassList.Models.RPGClass>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>List of Classes</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by ClassName: <input type="text" name="searchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-secondary" /> |
+            <a asp-action="Index">Back to Full List</a>
+            
+        </p>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CNSortParm"]">@Html.DisplayNameFor(model => model.ClassName)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["HPSortParm"]">@Html.DisplayNameFor(model => model.HealthPoints)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeedSortParm"]">@Html.DisplayNameFor(model => model.Speed)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SASortParm"]">@Html.DisplayNameFor(model => model.SpecialAbilities)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialAbilities)
+                </td>
+                <td style="width:150px">
+                    <div class=" btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm text-white">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
