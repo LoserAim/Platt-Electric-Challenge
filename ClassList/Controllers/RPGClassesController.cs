@@ -19,9 +19,13 @@ namespace ClassList.Controllers
             _context = context;
         }
 
-        // GET: RPGClasses
+        
         public async Task<IActionResult> Index(string searchString, string sortOrder="")
         {
+            /* Purpose:
+             *  This function provides the list of RPGClasses to the View as well
+             *  filter it using LINQ based on certain actions from the user
+             */
             ViewData["CNSortParm"] = sortOrder == "name_D" ? "name_A" : "name_D";
             ViewData["HPSortParm"] = sortOrder == "hp_min" ? "hp_max" : "hp_min";
             ViewData["SpeedSortParm"] = sortOrder == "speed_min" ? "speed_max" : "speed_min";
@@ -86,18 +90,14 @@ namespace ClassList.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rPGClass = await _context.RPGClass
-                .FirstOrDefaultAsync(m => m.Id == id);
+            /* Purpose:
+             *  This function provides the model data of an RPGClass based on
+             *  the given id
+             */
+            var rPGClass = id != null ? await _context.RPGClass
+                            .FirstOrDefaultAsync(m => m.Id == id) : null;
             if (rPGClass == null)
-            {
                 return NotFound();
-            }
-
             return View(rPGClass);
         }
 
@@ -124,16 +124,14 @@ namespace ClassList.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rPGClass = await _context.RPGClass.FindAsync(id);
+            /* Purpose:
+             *  This function provides the model data of an RPGClass based on
+             *  the given id
+             */
+            var rPGClass = id != null ? await _context.RPGClass
+                            .FirstOrDefaultAsync(m => m.Id == id) : null;
             if (rPGClass == null)
-            {
                 return NotFound();
-            }
             return View(rPGClass);
         }
 
@@ -141,6 +139,11 @@ namespace ClassList.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ClassName,HealthPoints,Speed,SpecialAbilities")] RPGClass rPGClass)
         {
+            /* Purpose:
+             *  This function will save any changes made to model data as
+             *  long as the changes are not invalid. If invalid, it will
+             *  tell the user.
+             */
             if (id != rPGClass.Id)
             {
                 return NotFound();
@@ -155,7 +158,7 @@ namespace ClassList.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RPGClassExists(rPGClass.Id))
+                    if (!_context.RPGClass.Any(e => e.Id == id))
                     {
                         return NotFound();
                     }
@@ -172,18 +175,14 @@ namespace ClassList.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rPGClass = await _context.RPGClass
-                .FirstOrDefaultAsync(m => m.Id == id);
+            /* Purpose:
+             *  This function provides the model data of an RPGClass based on
+             *  the given id
+             */
+            var rPGClass = id != null ? await _context.RPGClass
+                .FirstOrDefaultAsync(m => m.Id == id) : null;
             if (rPGClass == null)
-            {
                 return NotFound();
-            }
-
             return View(rPGClass);
         }
 
@@ -196,12 +195,6 @@ namespace ClassList.Controllers
             _context.RPGClass.Remove(rPGClass);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-
-        private bool RPGClassExists(int id)
-        {
-            return _context.RPGClass.Any(e => e.Id == id);
         }
     }
 }
