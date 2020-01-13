@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ClassList.Data.Migrations
+namespace ClassList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200112221302_Init_RPGClass_model")]
-    partial class Init_RPGClass_model
+    [Migration("20200113110119_Create_RPGModel")]
+    partial class Create_RPGModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
